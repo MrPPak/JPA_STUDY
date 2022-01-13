@@ -10,7 +10,12 @@ import java.io.Serializable;
 @IdClass(Child.ChildId.class)
 public class Child {
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(
+            name = "child_id_seq",
+            sequenceName = "child_id_seq",
+            allocationSize = 1
+    )
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "child_id_seq")
     @Column(name = "CHILD_ID")
     private Long id;
 
@@ -19,8 +24,12 @@ public class Child {
     @JoinColumn(name = "PARENT_ID")
     private Parent parent;
 
-    public Child(Parent parent) {
+    private String name;
+
+    @Builder
+    private Child(Parent parent, String name) {
         this.parent = parent;
+        this.name = name;
     }
 
     @Data
