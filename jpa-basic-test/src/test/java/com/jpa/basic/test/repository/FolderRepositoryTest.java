@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
+
 @SpringBootTest
 public class FolderRepositoryTest {
 
@@ -17,17 +19,33 @@ public class FolderRepositoryTest {
     public void saveTest() throws Exception {
 
         // given (A폴더 - <B폴더,C폴더,D폴더>
-        Folder a = Folder.builder()
+        Folder aFolder = Folder.builder()
                 .name("A")
                 .build();
 
-        
+        Folder bFolder = Folder.builder()
+                .name("B")
+                .parent(aFolder)
+                .build();
 
+        Folder cFolder = Folder.builder()
+                .name("C")
+                .parent(aFolder)
+                .build();
+
+        Folder dFolder = Folder.builder()
+                .name("D")
+                .parent(aFolder)
+                .build();
+
+        Folder eFolder = Folder.builder()
+                .name("E")
+                .parent(bFolder)
+                .build();
 
         // when
-
-
-        // then
-
+        folderRepository.saveAll(Arrays.asList(aFolder, bFolder, cFolder, dFolder, eFolder));
     }
+
+
 }
