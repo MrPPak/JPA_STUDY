@@ -1,12 +1,18 @@
 package com.jpa.basic.test.repository;
 
 import com.jpa.basic.test.domain.Folder;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
+import org.springframework.transaction.annotation.Transactional;
+import sun.awt.image.ImageWatched;
 
-import java.util.Arrays;
+import javax.persistence.EntityManager;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @SpringBootTest
 public class FolderRepositoryTest {
@@ -14,11 +20,12 @@ public class FolderRepositoryTest {
     @Autowired
     FolderRepository folderRepository;
 
-    @Test
-    @DisplayName("자가참조 엔티티 insert 테스트")
-    public void saveTest() throws Exception {
+    @Autowired
+    EntityManager em;
 
-        // given (A폴더 - <B폴더,C폴더,D폴더>
+    @BeforeEach
+    public void setUp() throws Exception {
+
         Folder aFolder = Folder.builder()
                 .name("A")
                 .build();
@@ -28,9 +35,39 @@ public class FolderRepositoryTest {
                 .parent(aFolder)
                 .build();
 
+        Folder bChild1 = Folder.builder()
+                .name("BChild1")
+                .parent(bFolder)
+                .build();
+
+        Folder bChild2 = Folder.builder()
+                .name("BChild2")
+                .parent(bFolder)
+                .build();
+
+        Folder bChild3 = Folder.builder()
+                .name("BChild3")
+                .parent(bFolder)
+                .build();
+
         Folder cFolder = Folder.builder()
                 .name("C")
                 .parent(aFolder)
+                .build();
+
+        Folder cChild1 = Folder.builder()
+                .name("CChild1")
+                .parent(cFolder)
+                .build();
+
+        Folder cChild2 = Folder.builder()
+                .name("CChild2")
+                .parent(cFolder)
+                .build();
+
+        Folder cChild3 = Folder.builder()
+                .name("CChild3")
+                .parent(cFolder)
                 .build();
 
         Folder dFolder = Folder.builder()
@@ -38,14 +75,81 @@ public class FolderRepositoryTest {
                 .parent(aFolder)
                 .build();
 
-        Folder eFolder = Folder.builder()
-                .name("E")
-                .parent(bFolder)
+        Folder dChild1 = Folder.builder()
+                .name("DChild1")
+                .parent(dFolder)
                 .build();
 
-        // when
-        folderRepository.saveAll(Arrays.asList(aFolder, bFolder, cFolder, dFolder, eFolder));
+        Folder dChild2 = Folder.builder()
+                .name("DChild2")
+                .parent(dFolder)
+                .build();
+
+        Folder dChild3 = Folder.builder()
+                .name("DChild3")
+                .parent(dFolder)
+                .build();
+
+        folderRepository.saveAll(Arrays.asList(aFolder, bFolder, cFolder, dFolder, bChild1, bChild2,
+                bChild3, cChild1, cChild2, cChild3, dChild1, dChild2, dChild3));
+        em.flush();
+        em.clear();
     }
 
+    @Test
+    @DisplayName("자가참조 엔티티 select 최적화 테스트")
+    @Transactional()
+    public void selectTest() throws Exception {
+
+      /*  System.out.println(em.contains(aFolder));
+        System.out.println(em.contains(bFolder));
+        System.out.println(em.contains(cFolder));
+        System.out.println(em.contains(dFolder));*/
+
+        // when
+        Folder folder = folderRepository.findById(1L).get();
+        List<Folder> children = folder.getChildren();
+
+        // then
+        for (Folder child : children) {
+            System.out.println("child_1dept = " + child);
+            for (Folder grandChild : child.getChildren()) {
+                System.out.println("grandChild = " + grandChild);
+            }
+        }
+    }
+    
+    @Test
+    @DisplayName("bfs 알고리즘 적용 테스트")
+    @Transactional
+    @Commit
+    public void bfsTest() throws Exception {
+    
+        // given
+        Queue<Folder> queue = new LinkedList<>();
+        Folder deleteFolder = folderRepository.findById(1L).get();
+        queue.offer(deleteFolder);
+
+        List<Folder> tempFolders = new ArrayList<>();
+        tempFolders.add(deleteFolder);
+
+        // when
+        while(!queue.isEmpty()) {
+
+            Folder pollFolder = queue.poll();
+            List<Folder> folders = pollFolder.getChildren();
+
+            for (Folder folder : folders) {
+                queue.offer(folder);
+            }
+
+            tempFolders.addAll(folders);
+        }
+
+        // then
+        Collections.reverse(tempFolders);
+        folderRepository.deleteAll(tempFolders);
+        em.flush();
+    }
 
 }

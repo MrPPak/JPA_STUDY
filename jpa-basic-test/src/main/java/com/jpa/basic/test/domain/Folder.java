@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.List;
@@ -30,6 +31,7 @@ public class Folder {
     private Folder parent;
 
     // 자식
+    @BatchSize(size = 100)
     @OneToMany(mappedBy = "parent")
     private List<Folder> children;
 
@@ -37,5 +39,13 @@ public class Folder {
     private Folder(String name, Folder parent) {
         this.name = name;
         this.parent = parent;
+    }
+
+    @Override
+    public String toString() {
+        return "Folder{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
