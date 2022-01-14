@@ -1,15 +1,13 @@
-package com.jpa.basic.test.repository;
+package com.jpa.basic.test.family_idclass;
 
-import com.jpa.basic.test.domain.Child;
-import com.jpa.basic.test.domain.GrandChild;
-import com.jpa.basic.test.domain.Parent;
+import com.jpa.basic.test.family_idclass.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class FamilyRepositoryTest {
+public class FamilyIdClassTest {
 
     @Autowired
     ParentRepository parentRepository;

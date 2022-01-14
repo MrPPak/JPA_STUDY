@@ -1,6 +1,7 @@
-package com.jpa.basic.test.repository;
+package com.jpa.basic.test.folder;
 
-import com.jpa.basic.test.domain.Folder;
+import com.jpa.basic.test.folder.Folder;
+import com.jpa.basic.test.folder.FolderRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,14 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
-import sun.awt.image.ImageWatched;
 
 import javax.persistence.EntityManager;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @SpringBootTest
-public class FolderRepositoryTest {
+public class FolderTest {
 
     @Autowired
     FolderRepository folderRepository;

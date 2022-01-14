@@ -1,4 +1,4 @@
-package com.jpa.basic.test.domain;
+package com.jpa.basic.test.folder;
 
 import lombok.AccessLevel;
 import lombok.Builder;
