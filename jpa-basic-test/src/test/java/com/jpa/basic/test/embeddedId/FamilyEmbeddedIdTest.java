@@ -1,7 +1,5 @@
-package com.jpa.basic.test.family_embeddedId;
+package com.jpa.basic.test.embeddedId;
 
-import com.jpa.basic.test.family_idclass.Child;
-import com.jpa.basic.test.family_idclass.Parent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

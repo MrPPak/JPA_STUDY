@@ -1,4 +1,4 @@
-package com.jpa.basic.test.family_idclass;
+package com.jpa.basic.test.idclass;
 
 import lombok.AccessLevel;
 import lombok.Builder;

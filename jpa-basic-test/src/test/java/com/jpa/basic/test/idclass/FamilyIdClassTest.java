@@ -1,6 +1,5 @@
-package com.jpa.basic.test.family_idclass;
+package com.jpa.basic.test.idclass;
 
-import com.jpa.basic.test.family_idclass.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.jpa.basic.test.family_embeddedId;
+package com.jpa.basic.test.embeddedId;
 
 import lombok.AccessLevel;
 import lombok.Getter;

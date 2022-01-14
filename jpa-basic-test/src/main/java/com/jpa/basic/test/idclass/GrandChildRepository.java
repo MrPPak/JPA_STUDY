@@ -1,6 +1,5 @@
-package com.jpa.basic.test.family_idclass;
+package com.jpa.basic.test.idclass;
 
-import com.jpa.basic.test.family_idclass.GrandChild;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GrandChildRepository extends JpaRepository<GrandChild, GrandChild.GrandChildId> {
