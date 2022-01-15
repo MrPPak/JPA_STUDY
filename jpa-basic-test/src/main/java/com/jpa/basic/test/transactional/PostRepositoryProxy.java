@@ -4,6 +4,7 @@ import org.springframework.data.repository.core.EntityInformation;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.util.List;
 
 public class PostRepositoryProxy extends PostRepositoryImpl{
 
@@ -25,6 +26,20 @@ public class PostRepositoryProxy extends PostRepositoryImpl{
         } catch (Exception e) {
            transaction.rollback();
            throw new RuntimeException();
+        }
+    }
+
+    @Override
+    public List<Post> saveAll(List<Post> posts) {
+        try {
+            transaction.begin();
+            List<Post> savePosts = super.saveAll(posts);
+            transaction.commit();
+            return savePosts;
+
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException();
         }
     }
 }
