@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
-public class PostRepositoryProxy extends PostRepositoryImpl{
+public class PostRepositoryProxy extends PostRepositoryClass {
 
     private EntityTransaction transaction;
 

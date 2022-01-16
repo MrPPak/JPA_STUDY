@@ -12,7 +12,6 @@ public class TransactionalTest {
     @Autowired TransactionService transactionService;
     @Autowired ApplicationContext applicationContext;
 
-
     @Test
     @DisplayName("과연 transactionService 객체는 프록시인가")
     public void proxyTest() throws Exception {

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class PostRepositoryImpl {
+public class PostRepositoryClass {
 
     private final EntityManager em;
     private final EntityInformation entityInformation;

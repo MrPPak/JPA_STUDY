@@ -1,12 +1,5 @@
 package com.jpa.basic.test.transactional;
 
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.transaction.TransactionManager;
-import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
-import org.springframework.transaction.support.TransactionTemplate;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
