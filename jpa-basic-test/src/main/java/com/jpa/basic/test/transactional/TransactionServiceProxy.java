@@ -1,15 +1,19 @@
 package com.jpa.basic.test.transactional;
 
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
+
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 public class TransactionServiceProxy extends TransactionService {
 
-    private final EntityTransaction transaction;
+    private final PlatformTransactionManager transactionManager;
 
     public TransactionServiceProxy(PostRepository postRepository, EntityManager em) {
         super(postRepository, em);
-        this.transaction = em.getTransaction();
+        this.transactionManager = new DataSourceTransactionManager();
     }
 
     @Override
@@ -24,23 +28,23 @@ public class TransactionServiceProxy extends TransactionService {
 
     @Override
     public void transactionalPersistSave(Post post) {
+        TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
         try {
-            transaction.begin();
             super.transactionalPersistSave(post);
-            transaction.commit();
+            transactionManager.commit(status);
         } catch (Exception e) {
-            transaction.rollback();
+            transactionManager.rollback(status);
         }
     }
 
     @Override
     public void transactionalRepositorySave(Post post) {
+        TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
         try {
-            transaction.begin();
             super.transactionalRepositorySave(post);
-            transaction.commit();
+            transactionManager.commit(status);
         } catch (Exception e) {
-            transaction.rollback();
+            transactionManager.rollback(status);
         }
     }
 }
