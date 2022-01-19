@@ -28,6 +28,7 @@ public class TransactionServiceProxy extends TransactionService {
 
     @Override
     public void transactionalPersistSave(Post post) {
+        // getTransaction()을 하면 트랜잭션이 시작된다.
         TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
         try {
             super.transactionalPersistSave(post);
