@@ -1,12 +1,10 @@
 package com.jpa.basic.test.collection;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,20 +18,13 @@ public class AddressEntity {
     @Embedded
     private Address address;
 
-    public AddressEntity(String city, String street, String zipcode) {
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    public AddressEntity(String city, String street, String zipcode, Member member) {
         this.address = new Address(city, street, zipcode);
+        this.member = member;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AddressEntity that = (AddressEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(address, that.address);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, address);
-    }
 }

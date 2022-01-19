@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Member {
 
@@ -24,8 +23,7 @@ public class Member {
     @Embedded
     private Address homeAddress;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "MEMBER_ID")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "member")
     private List<AddressEntity> addressHistory = new ArrayList<>();
 
 }

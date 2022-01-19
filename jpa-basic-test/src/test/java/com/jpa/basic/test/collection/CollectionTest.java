@@ -18,8 +18,8 @@ public class CollectionTest {
         member.setUsername("member1");
         member.setHomeAddress(new Address("homeCity", "street", "10000"));
 
-        member.getAddressHistory().add(new AddressEntity("old1", "street", "10000"));
-        member.getAddressHistory().add(new AddressEntity("old1", "street", "10000"));
+        member.getAddressHistory().add(new AddressEntity("old1", "street", "10000", member));
+        member.getAddressHistory().add(new AddressEntity("old1", "street", "10000", member));
 
         memberRepository.save(member);
     }
