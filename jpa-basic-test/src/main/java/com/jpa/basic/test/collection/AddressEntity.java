@@ -20,9 +20,9 @@ public class AddressEntity {
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    private Member member;
+    private Member2 member;
 
-    public AddressEntity(String city, String street, String zipcode, Member member) {
+    public AddressEntity(String city, String street, String zipcode, Member2 member) {
         this.address = new Address(city, street, zipcode);
         this.member = member;
     }

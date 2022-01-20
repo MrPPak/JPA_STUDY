@@ -8,13 +8,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class CollectionTest {
 
-    @Autowired MemberRepository memberRepository;
+    @Autowired
+    Member2Repository memberRepository;
 
     @Test
     @DisplayName("collection 일대다 매핑 테스트")
     public void save() throws Exception {
 
-        Member member = new Member();
+        Member2 member = new Member2();
         member.setUsername("member1");
         member.setHomeAddress(new Address("homeCity", "street", "10000"));
 
