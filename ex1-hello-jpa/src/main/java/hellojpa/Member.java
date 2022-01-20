@@ -17,7 +17,10 @@ public class Member {
     @Column(name="USERNAME")
     private String username;
 
-    @Embedded
+    @Column(name = "AGE")
+    private int age;
+
+/*@Embedded
     private Address homeAddress;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -27,16 +30,15 @@ public class Member {
     @ElementCollection
     @CollectionTable(name = "FAVORITE_FOOD", joinColumns = @JoinColumn(name = "MEMBER_ID"))
     @Column(name = "FOOD_NAME")
-    private Set<String> favoriteFoods = new HashSet<>();
+    private Set<String> favoriteFoods = new HashSet<>();*/
 
    /* @ElementCollection
     @CollectionTable(name = "ADDRESS", joinColumns = @JoinColumn(name = "MEMBER_ID"))
     private List<Address> addressHistory = new ArrayList<>();*/
 
-
-   /* @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "TEAM_ID")
-    private Team team;*/
+    private Team team;
 
     /*@OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();*/
@@ -57,7 +59,7 @@ public class Member {
         this.username = username;
     }
 
-    public Address getHomeAddress() {
+    /*public Address getHomeAddress() {
         return homeAddress;
     }
 
@@ -80,12 +82,20 @@ public class Member {
     public void setAddressHistory(List<AddressEntity> addressHistory) {
         this.addressHistory = addressHistory;
     }
-
-    /*public Team getTeam() {
+*/
+    public Team getTeam() {
         return team;
     }
 
     public void setTeam(Team team) {
         this.team = team;
-    }*/
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 }

@@ -21,23 +21,37 @@ public class JpaMain {
 
         try { // ctrl + alt + t
 
+            Team team = new Team();
+            team.setName("A");
+            em.persist(team);
+
+            Team team2 = new Team();
+            team2.setName("B");
+            em.persist(team2);
+
             Member member = new Member();
-            member.setUsername("member");
-            member.setHomeAddress(new Address("homeCity", "street", "10000"));
-
-            member.getAddressHistory().add(new AddressEntity("old1", "street", "10000"));
-            member.getAddressHistory().add(new AddressEntity("old2", "street", "10000"));
-
+            member.setUsername("member1");
+            member.setAge(20);
+            member.setTeam(team);
             em.persist(member);
+
+            Member member2 = new Member();
+            member2.setUsername("member2");
+            member2.setAge(20);
+            member2.setTeam(team2);
+            em.persist(member2);
 
             em.flush();
             em.clear();
 
-            Member findMember = em.find(Member.class, member.getId());
+            /*String query = "select m from Member m join fetch m.team where m.team.name = 'A'";
+            List<Member> resultList = em.createQuery(query, Member.class).getResultList();
 
-            // 히스토리 바꾸기
-            findMember.getAddressHistory().remove(new AddressEntity("old1", "street", "10000"));
-            findMember.getAddressHistory().add(new AddressEntity("newCity1", "street", "10000"));
+            for (Member member1 : resultList) {
+                System.out.println("member1.getUsername() = " + member1.getUsername());
+            }*/
+
+            // Member findMember = em.
 
             tx.commit();
 
