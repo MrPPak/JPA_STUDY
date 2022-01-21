@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class ItemRepositoryImpl implements ItemRepositoryCustom{
 
-    private QItem item = QItem.item;
+    // private QItem item = QItem.item;
     private JPAQueryFactory queryFactory;
 
     @Autowired
@@ -18,6 +18,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom{
 
     @Override
     public Optional<Item> findByIdCustom(Long id) {
-        return Optional.ofNullable(queryFactory.selectFrom(item).where(item.id.eq(id)).fetchOne());
+       // return Optional.ofNullable(queryFactory.selectFrom(item).where(item.id.eq(id)).fetchOne());
+        return null;
     }
 }
