@@ -8,7 +8,11 @@ import java.util.Optional;
 
 public class ItemRepositoryImpl implements ItemRepositoryCustom{
 
+<<<<<<< Updated upstream
     // private QItem item = QItem.item;
+=======
+    //private QItem item = QItem.item;
+>>>>>>> Stashed changes
     private JPAQueryFactory queryFactory;
 
     @Autowired
@@ -18,7 +22,10 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom{
 
     @Override
     public Optional<Item> findByIdCustom(Long id) {
+<<<<<<< Updated upstream
        // return Optional.ofNullable(queryFactory.selectFrom(item).where(item.id.eq(id)).fetchOne());
+=======
+>>>>>>> Stashed changes
         return null;
     }
 }
