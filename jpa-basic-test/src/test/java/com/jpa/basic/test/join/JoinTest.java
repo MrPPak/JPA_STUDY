@@ -31,9 +31,6 @@ public class JoinTest {
         Member member2 = new Member("member2", 30, teamB);
         memberRepository.saveAll(Arrays.asList(member1, member2));
 
-        System.out.println(em.contains(teamA));
-        System.out.println(em.contains(member1));
-
         em.flush();
         em.clear();
 
