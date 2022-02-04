@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,8 +34,8 @@ public class OrderServiceTest {
     @Autowired OrderRepository repository;
 
     @Test
+    @Commit
     public void 상품주문() throws Exception {
-
         // given
         Member member = createMember();
         Item item = createBook("JPA", 10, 10000);
@@ -50,7 +51,6 @@ public class OrderServiceTest {
         Assert.assertEquals("주문한 상품 종류수가 맞아야한다.", 1, findOrder.getOrderItems().size());
         Assert.assertEquals("주문 수량만큼 재고수가 줄어야 한다.", 8, item.getStockQuantity());
         Assert.assertEquals("주문 가격은 가격 * 수량이다.", orderCount * item.getPrice(), findOrder.getTotalPrice());
-
     }
 
     @Test

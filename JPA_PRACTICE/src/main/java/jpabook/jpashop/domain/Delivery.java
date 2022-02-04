@@ -10,12 +10,13 @@ import javax.persistence.*;
 @Getter @Setter
 public class Delivery {
 
-    @Id @GeneratedValue
-    @Column(name = "delivery_id")
+    @Id
     private Long id;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
+    @MapsId
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private Order order;
 
     @Embedded
