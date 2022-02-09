@@ -2,51 +2,47 @@ package jpabook.jpashop;
 
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.service.MemberService;
-import org.assertj.core.api.Assertions;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-@RunWith(SpringRunner.class)
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 @SpringBootTest
 @Transactional
 public class MemberServiceTest {
-
     @Autowired
-    private MemberService service;
+    MemberService memberService;
 
     @Test
-    public void 회원가입() {
+    void 회원가입() throws Exception {
         // given
-        Member member1 = new Member();
-        member1.setName("park");
+        Member member = new Member();
+        member.setName("park");
 
         // when
-        Long saveId = service.join(member1);
+        Long savedId = memberService.join(member);
 
         // then
-        Assertions.assertThat(member1.getId()).isEqualTo(service.findOne(saveId).getId());
+        assertThat(savedId).isNotNull();
     }
 
-    @Test(expected = IllegalStateException.class)
-    public void 중복회원예외(){
+    @Test
+    void 중복회원_예외() throws Exception {
         // given
         Member member1 = new Member();
         member1.setName("park");
+        memberService.join(member1);
 
         Member member2 = new Member();
         member2.setName("park");
 
-        // when
-        service.join(member1);
-        service.join(member1);
-
-        // then
-        Assertions.fail("예외가 발생해야 합니다.");
-
+        // when, then
+        assertThatThrownBy(() ->
+                memberService.join(member2))
+                .isInstanceOf(IllegalStateException.class);
     }
 
 }

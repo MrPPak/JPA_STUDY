@@ -7,7 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      #ddl-auto: create
+      ddl-auto: create
     properties:
       hibernate:
         show_sql: true #이것은 sout으로 프린트
