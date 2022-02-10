@@ -44,5 +44,4 @@ public class MemberServiceTest {
                 memberService.join(member2))
                 .isInstanceOf(IllegalStateException.class);
     }
-
 }
