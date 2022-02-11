@@ -14,7 +14,9 @@ public class ItemRepository {
 
     public void save(Item item) {
         if(item.getId() == null) {
+            System.out.println("persist전 item의 id = " + item.getId());
             em.persist(item);
+            System.out.println("persist후 item의 id = " + item.getId());
         }else {
             em.merge(item);
         }

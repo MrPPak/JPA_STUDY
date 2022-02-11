@@ -50,7 +50,7 @@ public class OrderServiceTest {
         Assert.assertEquals("상품 주문시 상태는 ORDER", OrderStatus.ORDER, findOrder.getStatus());
         Assert.assertEquals("주문한 상품 종류수가 맞아야한다.", 1, findOrder.getOrderItems().size());
         Assert.assertEquals("주문 수량만큼 재고수가 줄어야 한다.", 8, item.getStockQuantity());
-        Assert.assertEquals("주문 가격은 가격 * 수량이다.", orderCount * item.getPrice(), findOrder.getTotalPrice());
+        Assert.assertEquals("주문 가격은 가격 * 수량이다.", orderCount * item.getPrice(), findOrder.getPriceTotal());
     }
 
     @Test

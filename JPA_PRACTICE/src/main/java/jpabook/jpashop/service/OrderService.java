@@ -12,18 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class OrderService {
-
     private final OrderRepository orderRepository;
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
 
-    /** 주문 */
-    @Transactional
-    public Long order(Long memberId, Long itemId, int count) {
-
+    // 주문
+    public Long order(long memberId, long itemId, int count) {
         // 엔티티 조회
         Member member = memberRepository.findOne(memberId);
         Item item = itemRepository.findOne(itemId);
@@ -40,16 +37,13 @@ public class OrderService {
 
         // 주문 저장
         orderRepository.save(order);
-        
-        return order.getId();
 
+        return order.getId();
     }
 
-    /** 취소 */
-    @Transactional
-    public void cancelOrder(Long orderId) {
-
-        // 주문 엔티티 조회
+    // 주문 취소
+    public void cancel(long orderId) {
+        // 엔티티 조회
         Order order = orderRepository.findOne(orderId);
 
         // 주문 취소
@@ -57,6 +51,7 @@ public class OrderService {
     }
 
     /** 검색 */
+    @Transactional(readOnly = true)
     public List<Order> findOrders(OrderSearch orderSearch){
         return orderRepository.findAllByString(orderSearch);
     }
