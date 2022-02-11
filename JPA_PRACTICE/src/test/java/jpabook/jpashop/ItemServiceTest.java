@@ -16,6 +16,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class ItemServiceTest {
+    /*
+        질문 1
+        지금 ItemRepository 밖에 없어서 findOne을 하면 returnType이 Item이다.
+        근데 나는 Movie를 return 받고 싶다.
+        이런 경우 movieRepository를 따로 만들어야 하는가?
+     */
+
     @Autowired
     ItemService itemService;
 

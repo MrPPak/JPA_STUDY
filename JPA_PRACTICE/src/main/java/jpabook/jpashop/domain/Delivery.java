@@ -1,19 +1,18 @@
 package jpabook.jpashop.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
 @Getter @Setter
+@Entity
 public class Delivery {
 
     @Id
     private Long id;
 
-    @JsonIgnore
+    // @JsonIgnore
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
