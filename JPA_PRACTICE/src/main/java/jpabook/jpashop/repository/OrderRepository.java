@@ -80,4 +80,8 @@ public class OrderRepository {
                 .getResultList();
     }
 
+    public void deleteAll() {
+        em.createQuery("delete from Order")
+          .executeUpdate();
+    }
 }

@@ -4,6 +4,7 @@ import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.domain.item.Movie;
 import jpabook.jpashop.service.ItemService;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,8 +30,11 @@ public class ItemServiceTest {
     @Autowired
     EntityManager em;
 
-    @AfterEach
-    void afterEach() {
+    // @AfterEach에 deleteAll을 안하고 @BeforeEach에 하는 이유
+    // @AfterEach는 테스트 메소드 실행 후 동작하는 거라 테스트 메소드에서 예외가 발생하면
+    // @AfterEach가 동작안해서 deleteAll이 실행 안될 수도 있음
+    @BeforeEach
+    void setUp() {
         itemService.deleteAll();
     }
 

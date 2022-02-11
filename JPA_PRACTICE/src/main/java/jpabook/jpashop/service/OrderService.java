@@ -55,4 +55,13 @@ public class OrderService {
     public List<Order> findOrders(OrderSearch orderSearch){
         return orderRepository.findAllByString(orderSearch);
     }
+
+    public Order findOne(long id) {
+        return orderRepository.findOne(id);
+    }
+
+    // 삭제
+    public void deleteAll() {
+        orderRepository.deleteAll();
+    }
 }
