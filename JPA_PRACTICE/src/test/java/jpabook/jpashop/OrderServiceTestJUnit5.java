@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @Transactional
 public class OrderServiceTestJUnit5 {
-   static final int BOOK_STOCK_QUANTITY = 10;
+   static final int FIRST_BOOK_STOCK_QUANTITY = 10;
    static final int BOOK_PRICE = 10000;
 
    @Autowired OrderService orderService;
@@ -43,7 +43,7 @@ public class OrderServiceTestJUnit5 {
        // 상품(책) 등록
        Book book = new Book();
        book.setName("JPA");
-       book.setStockQuantity(BOOK_STOCK_QUANTITY);
+       book.setStockQuantity(FIRST_BOOK_STOCK_QUANTITY);
        book.setPrice(BOOK_PRICE);
        em.persist(book);
        this.book = book;
@@ -60,7 +60,7 @@ public class OrderServiceTestJUnit5 {
 
        assertThat(findOrder.getStatus()).isEqualTo(OrderStatus.ORDER);
        assertThat(findOrder.getOrderItems()).hasSize(1);
-       assertThat(book.getStockQuantity()).isEqualTo(BOOK_STOCK_QUANTITY - orderCount);
+       assertThat(book.getStockQuantity()).isEqualTo(FIRST_BOOK_STOCK_QUANTITY - orderCount);
        assertThat(findOrder.getPriceTotal()).isEqualTo(BOOK_PRICE * orderCount);
    }
 
@@ -77,13 +77,13 @@ public class OrderServiceTestJUnit5 {
        Order findOrder = orderService.findOne(orderId);
 
        assertThat(findOrder.getStatus()).isEqualTo(OrderStatus.CANCEL);
-       assertThat(book.getStockQuantity()).isEqualTo(BOOK_STOCK_QUANTITY);
+       assertThat(book.getStockQuantity()).isEqualTo(FIRST_BOOK_STOCK_QUANTITY);
    }
 
    @Test
    void 재고_수량_초과() {
        Assertions.assertThatThrownBy(() ->
-                       orderService.order(member.getId(), book.getId(), BOOK_STOCK_QUANTITY + 1))
+                       orderService.order(member.getId(), book.getId(), FIRST_BOOK_STOCK_QUANTITY + 1))
                       .isInstanceOf(NotEnoughStockException.class);
     }
 }
