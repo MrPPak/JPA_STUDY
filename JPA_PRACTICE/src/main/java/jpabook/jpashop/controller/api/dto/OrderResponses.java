@@ -1,7 +1,6 @@
 package jpabook.jpashop.controller.api.dto;
 
 import jpabook.jpashop.domain.Address;
-import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.domain.OrderStatus;
 import lombok.Data;
 
@@ -11,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class OrderResponses {
     @Data
-    public static class Order {
+    public static class OrderResponse {
         private Long orderId;
         private String name;
         private LocalDateTime orderDate; //주문시간
@@ -19,7 +18,7 @@ public class OrderResponses {
         private Address address;
         private List<OrderItem> orderItems;
 
-        public Order(jpabook.jpashop.domain.Order order) {
+        public OrderResponse(jpabook.jpashop.domain.Order order) {
             orderId = order.getId();
             name = order.getMember().getName();
             orderDate = order.getOrderDate();
